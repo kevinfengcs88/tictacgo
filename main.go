@@ -14,7 +14,6 @@ func main() {
         {' ', ' ', ' '},
     }
     game(&t)
-    t.PrintBoard()
 }
 
 func game(t *tictactoe.TicTacToe) {
@@ -26,12 +25,13 @@ func game(t *tictactoe.TicTacToe) {
     m[1] = 'x'
     m[2] = 'o'
 
+    t.PrintBoard()
+
     for game {
         var move string
         var row int
         var col int
-        // fmt.Println("Reference board (0-8 are viable moves):")
-        // tictactoe.PrintReference()
+
         fmt.Printf("Choose where you would like to place your mark, player %d\n", player)
         fmt.Scanln(&move)
 
@@ -42,7 +42,6 @@ func game(t *tictactoe.TicTacToe) {
             continue
         }
 
-        fmt.Printf("%T\n", moveNum)
         if (moveNum < 0 || moveNum > 8) {
             fmt.Println("Please enter an integer from 0 to 8")
             continue
