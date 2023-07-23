@@ -17,9 +17,9 @@ func main() {
 }
 
 func game(t *tictactoe.TicTacToe) {
-    var game bool = true
+    var gameStatus bool = true
     var player int = 1
-    var tie bool
+    var tie int 
 
     m := make(map[int]rune)
     m[1] = 'x'
@@ -27,7 +27,7 @@ func game(t *tictactoe.TicTacToe) {
 
     t.PrintBoard()
 
-    for game {
+    for gameStatus {
         var move string
         var row int
         var col int
@@ -58,7 +58,7 @@ func game(t *tictactoe.TicTacToe) {
         t.Board[row][col] = m[player]
         t.PrintBoard()
 
-        game, tie = tictactoe.GameStatus(*t)
+        gameStatus, tie = tictactoe.GameStatus(*t)
 
         if player == 1 {
             player = 2
@@ -67,11 +67,13 @@ func game(t *tictactoe.TicTacToe) {
         }
     }
     fmt.Println("-----GAME OVER-----")
-    if tie {
+
+    switch tie {
+    case 0:
         fmt.Println("It was a tie...")
-    } else if player == 1 {
-        fmt.Println("Player 2 (O) won!")
-    } else if player == 2 {
+    case 1:
         fmt.Println("Player 1 (X) won!")
+    case 2:
+        fmt.Println("Player 2 (O) won!")
     }
 }

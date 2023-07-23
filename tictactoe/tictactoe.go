@@ -36,11 +36,11 @@ func (t TicTacToe) PrintBoard () {
     fmt.Println("  6 7 8  ")
 }
 
-// returns two bools
 // first is the game status (true = game can continue, false = game is over)
-// second is if the game is a tie
-func GameStatus (t TicTacToe) (bool, bool) {
+// second is the tie status (0 = tie, 1 = player 1 won, 2 = player 2 won)
+func GameStatus (t TicTacToe) (bool, int) {
     b := t.Board
+    var tie int
 
     for i := 0; i < len(b); i++ {
         unique := make(map[rune]bool)
@@ -48,7 +48,13 @@ func GameStatus (t TicTacToe) (bool, bool) {
             unique[value] = true
         }
         if (len(unique) == 1 && unique[' '] != true) {
-            return false, false
+            _, ok := unique['x']
+            if ok {
+                tie = 1
+            } else {
+                tie = 2
+            }
+            return false, tie 
         }
     }
 
@@ -58,7 +64,13 @@ func GameStatus (t TicTacToe) (bool, bool) {
             unique[b[i][j]] = true
         }
         if (len(unique) == 1 && unique[' '] != true) {
-            return false, false
+            _, ok := unique['x']
+            if ok {
+                tie = 1
+            } else {
+                tie = 2
+            }
+            return false, tie 
         }
     }
 
@@ -67,7 +79,13 @@ func GameStatus (t TicTacToe) (bool, bool) {
     unique[b[1][1]] = true
     unique[b[2][2]] = true
     if (len(unique) == 1 && unique[' '] != true) {
-        return false, false
+        _, ok := unique['x']
+        if ok {
+            tie = 1
+        } else {
+            tie = 2
+        }
+        return false, tie 
     }
     delete(unique, b[0][0])
     delete(unique, b[2][2])
@@ -75,7 +93,13 @@ func GameStatus (t TicTacToe) (bool, bool) {
     unique[b[2][0]] = true
     unique[b[0][2]] = true
     if (len(unique) == 1 && unique[' '] != true) {
-        return false, false
+        _, ok := unique['x']
+        if ok {
+            tie = 1
+        } else {
+            tie = 2
+        }
+        return false, tie 
     }
 
     delete(unique, b[1][1])
@@ -89,10 +113,10 @@ func GameStatus (t TicTacToe) (bool, bool) {
     }
 
     if unique[' '] == false {
-        return false, true
+        return false, tie
     }
 
-    return true, false
+    return true, tie
 }
 
 func MiniMax(t TicTacToe, depth int, max bool) int {
