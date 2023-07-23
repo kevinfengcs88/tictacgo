@@ -36,7 +36,10 @@ func (t TicTacToe) PrintBoard () {
     fmt.Println("  6 7 8  ")
 }
 
-func GameOver (t TicTacToe) (bool, bool) {
+// returns two bools
+// first is the game status (true = game can continue, false = game is over)
+// second is if the game is a tie
+func GameStatus (t TicTacToe) (bool, bool) {
     b := t.Board
 
     for i := 0; i < len(b); i++ {
@@ -89,6 +92,9 @@ func GameOver (t TicTacToe) (bool, bool) {
         return false, true
     }
 
-    return true, true
+    return true, false
 }
 
+func MiniMax(t TicTacToe, depth int, max bool) int {
+    return 5 
+}

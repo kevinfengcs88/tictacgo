@@ -32,7 +32,7 @@ func game(t *tictactoe.TicTacToe) {
         var row int
         var col int
 
-        fmt.Printf("Choose where you would like to place your mark, player %d\n", player)
+        fmt.Printf("Choose where you would like to place your mark (%c), player %d\n", m[player], player)
         fmt.Scanln(&move)
 
         moveNum, err := strconv.Atoi(move)
@@ -58,7 +58,7 @@ func game(t *tictactoe.TicTacToe) {
         t.Board[row][col] = m[player]
         t.PrintBoard()
 
-        game, tie = tictactoe.GameOver(*t)
+        game, tie = tictactoe.GameStatus(*t)
 
         if player == 1 {
             player = 2
@@ -75,4 +75,3 @@ func game(t *tictactoe.TicTacToe) {
         fmt.Println("Player 1 (X) won!")
     }
 }
-
