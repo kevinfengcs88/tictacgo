@@ -128,74 +128,59 @@ func GameStatus(t TicTacToe) (bool, int) {
 
 // max being true means this call of the function is on the computer
 // false means that the current call is on the player (and thus, we minimize the score)
-func MiniMax(t TicTacToe, depth int, max bool) int {
+func MiniMax(t TicTacToe, depth int, max bool) (int, int, int) {
 	status, tie := GameStatus(t)
 
 	// return 10 - depth if computer wins
 	if status == false && tie == 2 {
-		return 10 - depth
+		return 10 - depth, 0, 0
 		// return -10 + depth if computer inevitably loses
 	} else if status == false && tie == 1 {
-		return -10 + depth
+		return -10 + depth, 0, 0
 		// return 0 if it's a tie
 	} else if status == false && tie == 0 {
-		return 0
+		return 0, 0, 0
 	}
-
-	bestScore := 0
 
 	if max {
 		fmt.Println("Entered the max section of MiniMax")
-		bestScore = -69
+		bestScore := -69
+		var row int
+		var col int
 		for i := 0; i < 3; i++ {
 			for j := 0; j < 3; j++ {
 				if t.Board[i][j] == ' ' {
 					t.Board[i][j] = 'o'
-					score := MiniMax(t, depth+1, false)
+					score, _, _ := MiniMax(t, depth+1, false)
 					t.Board[i][j] = ' '
 					if score > bestScore {
 						bestScore = score
+						row = i
+						col = j
 					}
 				}
 			}
 		}
+		return bestScore, row, col
 	} else {
 		fmt.Println("Entered the min section of MiniMax")
-		bestScore = 69
+		bestScore := 69
+		var row int
+		var col int
 		for i := 0; i < 3; i++ {
 			for j := 0; j < 3; j++ {
 				if t.Board[i][j] == ' ' {
 					t.Board[i][j] = 'x'
-					score := MiniMax(t, depth+1, true)
+					score, _, _ := MiniMax(t, depth+1, true)
 					t.Board[i][j] = ' '
 					if score < bestScore {
 						bestScore = score
+						row = i
+						col = j
 					}
 				}
 			}
 		}
+		return bestScore, row, col
 	}
-	return bestScore
-}
-
-// we create a separate method with similar functionality to MiniMax
-// so that we have access to the i and j (the best move) at the top level of the recursion tree
-func BestMove(t TicTacToe) (int, int) {
-	bestScore := -69
-	var row, col int
-	for i := 0; i < 3; i++ {
-		for j := 0; j < 3; j++ {
-			if t.Board[i][j] == ' ' {
-				t.Board[i][j] = 'o'
-				score := MiniMax(t, 0, true)
-				t.Board[i][j] = ' '
-				if score > bestScore {
-					bestScore = score
-					row = i
-					col = j
-				}
-			}
-		}
-	}
-	return row, col
 }

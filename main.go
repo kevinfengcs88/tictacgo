@@ -173,7 +173,7 @@ func playerVSAI(t *tictactoe.TicTacToe) {
 			//     t.PrintBoard()
 			// }
 
-			bestRow, bestCol := tictactoe.BestMove(*t)
+			_, bestRow, bestCol := tictactoe.MiniMax(*t, 0, true)
 			fmt.Println("bestRow is", bestRow)
 			fmt.Println("bestCol is", bestCol)
 			t.Board[bestRow][bestCol] = 'o'
