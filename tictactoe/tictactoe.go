@@ -143,7 +143,6 @@ func MiniMax(t TicTacToe, depth int, max bool) (int, int, int) {
 	}
 
 	if max {
-		fmt.Println("Entered the max section of MiniMax")
 		bestScore := -69
 		var row int
 		var col int
@@ -163,7 +162,6 @@ func MiniMax(t TicTacToe, depth int, max bool) (int, int, int) {
 		}
 		return bestScore, row, col
 	} else {
-		fmt.Println("Entered the min section of MiniMax")
 		bestScore := 69
 		var row int
 		var col int

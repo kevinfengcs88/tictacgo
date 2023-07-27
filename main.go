@@ -159,19 +159,6 @@ func playerVSAI(t *tictactoe.TicTacToe) {
 			s.Start()
 			time.Sleep(time.Second)
 			s.Stop()
-			// var row int
-			// var col int
-			//
-			// random := rand.Intn(9)
-			// row = random / 3
-			// col = random % 3
-			//
-			// if (t.Board[row][col] != ' '){
-			//     continue
-			// } else {
-			//     t.Board[row][col] = m[player]
-			//     t.PrintBoard()
-			// }
 
 			_, bestRow, bestCol := tictactoe.MiniMax(*t, 0, true)
 			fmt.Println("bestRow is", bestRow)
@@ -180,7 +167,6 @@ func playerVSAI(t *tictactoe.TicTacToe) {
 
 			t.PrintBoard()
 
-			// END
 			gameStatus, tie = tictactoe.GameStatus(*t)
 			player = 1
 		}
